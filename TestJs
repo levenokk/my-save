@@ -1,0 +1,115 @@
+class Item{
+	constructor(name,price){
+		this.name = name;
+		this.price = price;
+	}
+	
+	static sort_small(priceA,priceB){
+		return priceB.price-priceA.price;
+	}
+}
+
+let arr = [];//масив куда будет кидаться new Item
+
+while (true){
+	let a = +prompt('Сколько предметов вы хотите добавить ?',1);
+	
+	if (a != 0 && a > 0){
+		let i = 0;
+		
+		while (i<a){
+			let name = prompt('Введите названия предмета ');
+			let price =+prompt('Введите цену');
+			arr.push(new Item(name,price));//добавления елемента в масив
+			i++;
+		}
+		let next = confirm('Хотите ли вы добавить ещё предметов ?');
+		if(next) continue;
+		if (!next){
+			
+			while(true){
+				let metods = +prompt('Что вы хотите сделать?\n1.Посмотреть всё добавленые предметы\n2.Удалить всё предметы\n3.Отсортировать по самой высокой цене и вывести всё\n4.Удалить товар\n5.Добавить товар\n6.Изменить товар');
+				
+				switch (metods) {
+					case 1:
+						arr.map((a)=>alert(a.name));//вывод каждого елемента масива
+						break;
+
+						case 2:
+							arr = [];//удаление масива 
+							alert('Вы удалили успешно удалили всё предметы');
+							break;
+
+						case 3://сортивка масива по самой высокой цене 
+							arr.sort(Item.sort_small).map((a)=>alert(`Имя товара:${a.name}\nЦена:${a.price}`));
+							break;
+
+						case 4://удалить товар 
+							let find = prompt('Какой товар вы хотите удалить ?');
+							
+							for (let i = 0; i < arr.length; i++){
+								
+								if(arr[i].name == find){
+									arr.splice(i,1);
+									alert(`вы успешно удалили ${find}`);
+								}
+								
+							}
+							break;
+						case 5://добавить товар
+							while(true){
+								
+								let name = prompt('Введите названия предмета ');
+								let price =+prompt('Введите цену');
+								
+								if(price<0){
+									while (true){
+										
+										alert('Цена не может быть ниже нуля, пожалуйста введите цену равную 0 или выше');
+										
+										let price = +prompt('Введите цену');
+										
+										if(price>=0) break;
+										else continue;
+									}
+								}
+								arr.push(new Item(name,price));
+								
+								let next = confirm('Хотите ещё добавить предмет ?');
+								
+								if (next) continue;
+								if (!next) break;	
+							}
+							break;
+
+						case 6:
+							let change = prompt('Какой товар вы хотите изменить ?');
+							let newChange = prompt('Введите новое имя');
+							
+							for (let i = 0; i < arr.length; i++){
+								
+								if(arr[i].name == change){
+									arr.splice(i,1,new Item(newChange,arr[i].price));
+								}
+
+							}
+						break;
+					default:
+						alert('Вы ввели не то число');
+						break;
+				}
+				let end = confirm('Хотите ли вы ещё что-то сделать ?');
+				if(!end) break;
+			}
+		}
+	}
+	
+	let exit = confirm('Хотите ли вы выйти из программы ?');//выход из проги 
+	
+	if (exit) break;
+	if(!exit) continue;
+	else alert('Введите число больше 0');
+}
+
+
+

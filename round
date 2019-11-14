@@ -1,0 +1,14 @@
+function round(x,y) {
+  let startX= 0;
+  let startY = 0;
+  let timer = setInterval(function(){
+    document.getElementsByClassName('cricle')[0].style.width = startX+'px'; 
+    document.getElementsByClassName('cricle')[0].style.height = startY+'px'; 
+    if(startX === x && startY ===y){
+      document.getElementsByClassName('text')[0].style.opacity = 1;
+      clearInterval(timer);
+    }
+    startX++;
+    startY++;
+  },5);
+}
